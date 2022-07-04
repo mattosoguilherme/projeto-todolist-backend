@@ -111,3 +111,6 @@ definitions:
       prazo:
         type: "string"
         example: "08/07/2003"
+      status:
+        type: "string"
+        example: "a fazer"

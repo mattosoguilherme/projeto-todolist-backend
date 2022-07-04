@@ -1,6 +1,9 @@
 if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yml")
+const swaggerUi = require("swagger-ui-express");
 const express = require("express");
 const cors = require("cors");
 const conn = require("./conn/conn")
@@ -9,14 +12,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const db_url = process.env.DB_URL;
-const db_user = process.env.DB_USER;
-const db_pass = process.env.DB_PASS;
-const db_data = process.env.DB_DATA;
+app.use("/api", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-conn(db_url, db_user, db_pass, db_data);
+const db_url = process.env.MONGODB_URI;
+conn(db_url);
 
-app.use("/tasks", TasksRouter);
+app.use("/api/tasks", TasksRouter);
 
 const port = 3000;
 app.listen(process.env.PORT || port, () => {

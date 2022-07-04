@@ -1,0 +1,113 @@
+swagger: "2.0"
+info:
+  description: "API de Controle de Tarefas"
+  version: "1.0.0"
+  title: "Tasks"
+  contact:
+    email: "guilhermemtfran@gmail.com"
+paths:
+  /tasks/{id}:
+    get:
+      description: "Lista task por ID\n"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da task"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Resultado da busca"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Task"
+        "400":
+          description: "bad input parameter"
+    put:
+      description: "Atualização de uma task"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id da task"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Task que será atualizada"
+        required: true
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      description: "Exclusão de uma task"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id do task"
+        required: true
+        type: "string"
+      responses:
+        "204":
+          description: "OK"
+        "400":
+          description: "task inválida"
+        "404":
+          description: "task não encontrado"
+  /tasks:
+    get:
+      description: "Listagem de todos as tasks\n"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "Resultado da busca"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Task"
+        "400":
+          description: "bad input parameter"
+    post:
+      description: "Adicionar task a sua lista"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Task que será adicionada"
+        required: true
+        schema:
+          $ref: "#/definitions/Task"
+      responses:
+        "200":
+          description: "OK"
+definitions:
+  Task:
+    type: "object"
+    required:
+    - "titulo" 
+    - "descricao"
+    - "prioridade"
+    - "status"
+    - "prazo"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+        example: "d290f1ee-6c54-4b01-90e6-d701748f0851"
+      titulo:
+        type: "string"
+        example: "Cortar o cabelo"
+      descricao:
+        type: "string"
+        example: "Com o Fabricio, no Senador"
+      prioridade:
+        type: "string"
+        example: "alta"
+      prazo:
+        type: "string"
+        example: "08/07/2003"

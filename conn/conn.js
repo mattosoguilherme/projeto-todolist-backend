@@ -1,9 +1,7 @@
 const Mongoose = require("mongoose");
 
-const conn = (url, user, pass, data) => {
-  Mongoose.connect(`${url}/${data}`, {
-    user: user,
-    pass: pass,
+const conn = (url) => {
+  Mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

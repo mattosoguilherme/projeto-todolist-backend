@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
   todolist:
-    image: oliveirafull/todolist:v3
+    image: oliveirafull/todolist:latest
     networks:
       - rede
     ports:

@@ -18,7 +18,7 @@ conn(db_url, db_user, db_pass, db_data);
 
 app.use("/tasks", TasksRouter);
 
-const port = 3005;
+const port = 3000;
 app.listen(process.env.PORT || port, () => {
   console.log(`app rodando na porta: http://localhost:${port}/tasks`);
 });
